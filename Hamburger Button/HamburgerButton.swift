@@ -40,7 +40,7 @@ class HamburgerButton : UIButton {
     let hamburgerStrokeEnd: CGFloat = 0.111
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
     }
 
     override init(frame: CGRect) {
@@ -58,7 +58,7 @@ class HamburgerButton : UIButton {
             layer.lineCap = kCALineCapRound
             layer.masksToBounds = true
 
-            let strokingPath = CGPathCreateCopyByStrokingPath(layer.path, nil, 4, kCGLineCapRound, kCGLineJoinMiter, 4)
+            let strokingPath = CGPathCreateCopyByStrokingPath(layer.path, nil, 4, .Round, .Miter, 4)
 
             layer.bounds = CGPathGetPathBoundingBox(strokingPath)
 
@@ -148,10 +148,10 @@ extension CALayer {
         let copy = animation.copy() as! CABasicAnimation
 
         if copy.fromValue == nil {
-            copy.fromValue = self.presentationLayer().valueForKeyPath(copy.keyPath)
+            copy.fromValue = self.presentationLayer()!.valueForKeyPath(copy.keyPath!)
         }
 
         self.addAnimation(copy, forKey: copy.keyPath)
-        self.setValue(copy.toValue, forKeyPath:copy.keyPath)
+        self.setValue(copy.toValue, forKeyPath:copy.keyPath!)
     }
 }
